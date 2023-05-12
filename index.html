@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
+    <title>HoonMinBareum</title>
+    <link rel="stylesheet" href="style.css"/>
+    <script type = "text/javascript" src="convert.js"></script>
+  </head>
+  <body>
+    <script type = "text/javascript" src="upload.js"></script>
+    <form>
+      <label for="english">English:</label><br>
+      <input type="text" id="english" name="english" value="" style="font-size: 38px"><br>
+      <label for="ipa">IPA:</label><br>
+      <input type="text" id="ipa" name="ipa" value="" onclick="ipaInputClicked()" style="font-size: 38px"><br><br>
+      <input type="button" id="button" onclick="convertButtonClicked()" value="Convert" style="font-size: 38px">    
+    </form>
+    <p>HMBR:</p>
+    <p id="hmbr" class="hmbr"></p>
+    <p id="hmbr1" class="hmbr1"></p>
+    <input type="button" id="connect" onClick="connectButtonClicked()" value="Connect" style="font-size: 38px"><br>
+    <div id = "connectButtonsList"></div><br>
+    <input type="button" id="copyToClipboard" onClick="copyToClipboardClicked()" value="Copy to Clipboard" style="font-size: 38px"><br>
+    <p>Add/Edit Dictionary:</p>
+    <form>
+      <label for="denglish">English:</label><br>
+      <input type="text" id="denglish" name="denglish" value="" style="font-size: 38px"><br>
+      <label for="dipa">IPA:</label><br>
+      <input type="text" id="dipa" name="dipa" value="" style="font-size: 38px"><br><br>
+      <input type="button" id="dbutton" onClick="addButtonClicked()" value="Add" style="font-size: 38px">    
+    </form>
+    <p id="message"></p>
+    <script>
+      var englishInput = document.getElementById("english");
+      englishInput.addEventListener("keypress", function(event) {
+        if (event.keyCode == 13) {
+          event.preventDefault();
+          document.getElementById("button").click();
+        }
+      });
+      var ipaInput = document.getElementById("ipa");
+      ipaInput.addEventListener("keypress", function(event) {
+        if (event.keyCode == 13) {
+          event.preventDefault();
+          document.getElementById("button").click();
+        }
+      });
+    </script>
+  </body>
+</html>
