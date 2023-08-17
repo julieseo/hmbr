@@ -42,4 +42,7 @@ out/
 ```
 Now go to Finder and go to the ```out/hmbr-mac-darwin-arm64``` folder to find the ```hmbr-mac``` app. Double click to open.
 
-Note: Running ```make``` again will overwrite the app.
+**Note:** Running ```make``` again will overwrite the app.
+
+## Troubleshooting HMBR characters being replaced by squares
+You need to install the [NanumMyeongjo YetHangul](https://github.com/ujuc/nanum-font/blob/master/ttf/NanumMyeongjo-YetHangul.ttf) font. After installation, remake the app using the previous section.

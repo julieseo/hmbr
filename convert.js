@@ -237,7 +237,7 @@ function IPAtoHMBR(IPAString) {
         }
 
         // If \s\ is the first character of the word with a vowel following after, then it is \ㅆ\.
-        else if (IPAChar === "s" && i == 0 && isVowel(IPANextChar)) {
+        else if (IPAChar === "s" && (i == 0 || (i == 1 && IPAString[0] === "ˈ")) && isVowel(IPANextChar)) {
             HMBRString += "ㅆ";
         }
 
