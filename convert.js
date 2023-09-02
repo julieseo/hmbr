@@ -264,6 +264,10 @@ function IPAtoHMBR(IPAString) {
                     HMBRString += "ㄹㄹ";
                 }
 
+                else if (IPAPrevChar == "ˈ" && i-2 >= 0 && isVowel(IPAString[i-2]) && i+1 < IPAString.length && isVowel(IPANextChar)) {
+                    HMBRString = HMBRString.slice(0, -1) + "ㄹˈㄹ";
+                }
+
                 // If it's not any of the above, it is normal mapping
                 else {
                     HMBRString += "ㄹ";
