@@ -28,6 +28,7 @@ const IPA_TO_HMBR = new Map([
     ["j", "ᅙ"],
     ["l", "ㄹ"],
     ["r", "ꥶ"],
+    ["ɹ", "ꥶ"],
 
     // vowels, some with dipthongs (*)
     ["ɪ", "ㅣ"],
@@ -45,7 +46,7 @@ const IPA_TO_HMBR = new Map([
     ["a", "ㅐ"],
     ["ə", "ㆍ"],
     ["aɪ", "ㅏ*ㅇㅣ"],
-    ["ʌɪ", "ㅏ*ㅇㅣ"],
+    ["ʌɪ", "ㅓ*ㅇㅣ"],
     ["eɪ", "ㅔ*ㅇㅣ"],
     ["ɔɪ", "ㅗ*ㅇㅣ"],
     ["aʊ", "ㅏ*ㅇㅜ"],
@@ -57,7 +58,7 @@ const IPA_TO_HMBR = new Map([
 
     // other characters
     ["ˈ", "ˈ"],
-    ["ˌ", "ˈ"],
+    ["ˌ", "ˌ"],
     [" ", " "] 
 ]);
 
@@ -161,7 +162,7 @@ var HMBRString;
  */
 function convertButtonClicked() {
     // erasing previous conversions.
-    document.getElementById("hmbr1").innerHTML = "";
+    document.getElementById("hmbr").innerHTML = "";
     document.getElementById("connectButtonsList").innerHTML = "";
 
     const englishString = document.getElementById("english").value;
@@ -448,12 +449,14 @@ function isVowel(c) {
 
 function insertHMBR(s) {
     // We find instances of the accent character or the dipthong character.
+    // var primaryAccentIndex = s.indexOf("ˈ");
+    // var secondaryAccentIndex = s.indexOf("ˌ");
     var accentIndex = s.indexOf("ˈ");
     var dipthongIndex = s.indexOf("*");
 
     // If there are no accent characters or dipthong characters, we just output the found HMBR in the normal font size.
     if (accentIndex == -1 && dipthongIndex == -1) {
-        document.getElementById("hmbr1").innerHTML = s;
+        document.getElementById("hmbr").innerHTML = s;
     }
 
     // If there are one or more accent/dipthong characters, we change the font size.
@@ -487,7 +490,7 @@ function insertHMBR(s) {
 
         // If the program is out of the above loop it means that it has found all the accent/dipthong characters in the string.
         // We add on the remaining string onto the HTML.
-        document.getElementById("hmbr1").insertAdjacentHTML("beforeend", tmp);
+        document.getElementById("hmbr").insertAdjacentHTML("beforeend", tmp);
     }
 }
 
@@ -496,7 +499,7 @@ function tmpAfterDipthongInsert(s, i) {
     if (i != 0) {
         // We insert the string before * with normal size.
         const prev = s.substring(0, i);
-        document.getElementById("hmbr1").insertAdjacentHTML("beforeend", prev);
+        document.getElementById("hmbr").insertAdjacentHTML("beforeend", prev);
     }
 
     // We move onto the character that is being decreased.
@@ -524,7 +527,7 @@ function tmpAfterDipthongInsert(s, i) {
     }
 
     // Insert the changing string in the decreased font size.
-    document.getElementById("hmbr1").insertAdjacentHTML("beforeend", '<span style="font-size:25px">'+changingString+'</span>');
+    document.getElementById("hmbr").insertAdjacentHTML("beforeend", '<span style="font-size:25px">'+changingString+'</span>');
 
     // We return back the substring of s, cutting the front part that has been inserted.
     return s.substring(i);
@@ -541,13 +544,13 @@ function tmpAfterAccentInsert(s, i) {
     if (syllableIndex == -1) {
         // There is an error. We reset the HMBR field and put up an error message.
         alert("No syllable was found after the accent character. IPA is incorrect.");
-        document.getElementById("hmbr1").innerHTML = "";
+        document.getElementById("hmbr").innerHTML = "";
         return "";
     }
 
     // We save the head of the string including the first character until the syllable found above. These are saved in normal size.
     initString += s.substring(i+1, syllableIndex);
-    document.getElementById("hmbr1").insertAdjacentHTML("beforeend", initString);
+    document.getElementById("hmbr").insertAdjacentHTML("beforeend", initString);
 
     // Setting the new traversing index to the syllable found.
     i = syllableIndex;
@@ -579,7 +582,7 @@ function tmpAfterAccentInsert(s, i) {
     }
 
     // We save this string with increased font size.
-    document.getElementById("hmbr1").insertAdjacentHTML("beforeend", '<span style="font-size:50px">'+changingString+'</span>');
+    document.getElementById("hmbr").insertAdjacentHTML("beforeend", '<span style="font-size:50px">'+changingString+'</span>');
 
     // We return back the substring of s, cutting the front part that has been put into the html already.
     return s.substring(i);
@@ -615,7 +618,7 @@ function isLNCluster(c) {
 }
 
 function copyToClipboardClicked() {
-    var from = document.getElementById("hmbr1");
+    var from = document.getElementById("hmbr");
     var range = document.createRange();
     window.getSelection().removeAllRanges();
     range.selectNode(from);
@@ -629,31 +632,4 @@ function addButtonClicked() {
     const ipa = document.getElementById("dipa").value;
     localStorage.setItem(eng.toUpperCase(), ipa);
     alert("\"" + eng + "\" added to the dictionary.");
-}
-
-function connectButtonClicked() {
-    var buttons = document.getElementById("connectButtonsList");
-    //var hmbr = document.getElementById("hmbr1").textContent.trim();
-    var hmbr = HMBRString.replaceAll('ˈ', '').trim();
-    var i = hmbr.indexOf(' ');
-    document.getElementById("hmbr").innerHTML = hmbr;
-    //document.getElementById("hmbr").innerHTML = "first index of a space is found.";
-    while (i != -1 && i < hmbr.length) {
-        // create new button element
-        var button = document.createElement('BUTTON');
-        var text = document.createTextNode(i);
-        button.appendChild(text);
-        button.onclick = function(i) {
-            // handling when the individual connect buttons are clicked.
-            connect(i);
-        }
-        buttons.appendChild(button);
-        i = hmbr.indexOf(' ', i+1);
-    }
-}
-
-function connect(i) {
-    if (HMBRString.charAt(i+1) == "ㅇ") {
-        
-    }
 }
