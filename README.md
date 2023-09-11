@@ -46,3 +46,8 @@ Now go to Finder and go to the ```out/hmbr-mac-darwin-arm64``` folder to find th
 
 ## Troubleshooting HMBR characters being replaced by squares
 You need to install the [NanumMyeongjo YetHangul](https://github.com/ujuc/nanum-font/blob/master/ttf/NanumMyeongjo-YetHangul.ttf) font. After installation, remake the app using the previous section.
+
+## Changing databases of english to IPA
+Changing these databases (GA_10000, RP_120000, etc) requires care as not all databases are compatible for the current codebase. Modifications will be required for compatibility. 
+
+Currently, all 120000 worded databases have keys with Upper case words whilst the 10000 words don't. The default database is NRP_10000, which can be changed in index.html but further measures needed to detect when the database needs a new upload refresh and not.
