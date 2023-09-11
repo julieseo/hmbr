@@ -186,7 +186,7 @@ function findIPA(englishString) {
     const sentence = englishString.split(" ");
     var ret = "";
     for (let x in sentence) {
-        const word = localStorage.getItem(sentence[x].toUpperCase());
+        const word = localStorage.getItem(sentence[x].toLowerCase());
         if (word == null) {
             alert("The word \'" + sentence[x] + "\' does not exist in the dictionary. Try again.");
             return "";
