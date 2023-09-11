@@ -1,6 +1,6 @@
-if (localStorage.getItem("_uploaded") != true) {
-    localStorage.setItem("_uploaded", true)
-    localStorage.setItem("_updated", false)
+if (localStorage.getItem("NRP_10000_uploaded") != true) {
+    localStorage.clear()
+    localStorage.setItem("NRP_10000_uploaded", true)
     localStorage.setItem("the", "ðə");
     localStorage.setItem("of", "əv");
     localStorage.setItem("and", "ænd");
