@@ -163,7 +163,6 @@ var HMBRString;
 function convertButtonClicked() {
     // erasing previous conversions.
     document.getElementById("hmbr").innerHTML = "";
-    document.getElementById("connectButtonsList").innerHTML = "";
 
     const englishString = document.getElementById("english").value;
     var IPAString = "";
